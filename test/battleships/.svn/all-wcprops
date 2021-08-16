@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/~iaskai1/svn/!svn/ver/6/BattleShips/test/battleships
+END
+BattleFieldTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/~iaskai1/svn/!svn/ver/8/BattleShips/test/battleships/BattleFieldTest.java
+END
+MyButtonTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/~iaskai1/svn/!svn/ver/6/BattleShips/test/battleships/MyButtonTest.java
+END
+ShipTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/~iaskai1/svn/!svn/ver/6/BattleShips/test/battleships/ShipTest.java
+END
+VirtualPlayerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/~iaskai1/svn/!svn/ver/9/BattleShips/test/battleships/VirtualPlayerTest.java
+END
+GUITest.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/~iaskai1/svn/!svn/ver/7/BattleShips/test/battleships/GUITest.java
+END
+FireBattleFieldTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/~iaskai1/svn/!svn/ver/7/BattleShips/test/battleships/FireBattleFieldTest.java
+END
+ConnectTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/~iaskai1/svn/!svn/ver/8/BattleShips/test/battleships/ConnectTest.java
+END
+ManagerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/~iaskai1/svn/!svn/ver/8/BattleShips/test/battleships/ManagerTest.java
+END
+SetBattleFieldTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/~iaskai1/svn/!svn/ver/7/BattleShips/test/battleships/SetBattleFieldTest.java
+END
+PlayerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/~iaskai1/svn/!svn/ver/7/BattleShips/test/battleships/PlayerTest.java
+END

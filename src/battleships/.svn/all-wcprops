@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/~iaskai1/svn/!svn/ver/6/BattleShips/src/battleships
+END
+BattleField.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/~iaskai1/svn/!svn/ver/8/BattleShips/src/battleships/BattleField.java
+END
+MyButton.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/~iaskai1/svn/!svn/ver/2/BattleShips/src/battleships/MyButton.java
+END
+Ship.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/~iaskai1/svn/!svn/ver/6/BattleShips/src/battleships/Ship.java
+END
+VirtualPlayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/~iaskai1/svn/!svn/ver/9/BattleShips/src/battleships/VirtualPlayer.java
+END
+GUI.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/~iaskai1/svn/!svn/ver/8/BattleShips/src/battleships/GUI.java
+END
+Main.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/~iaskai1/svn/!svn/ver/9/BattleShips/src/battleships/Main.java
+END
+FireBattleField.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/~iaskai1/svn/!svn/ver/7/BattleShips/src/battleships/FireBattleField.java
+END
+Server.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/~iaskai1/svn/!svn/ver/9/BattleShips/src/battleships/Server.java
+END
+Connect.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/~iaskai1/svn/!svn/ver/10/BattleShips/src/battleships/Connect.java
+END
+Manager.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/~iaskai1/svn/!svn/ver/9/BattleShips/src/battleships/Manager.java
+END
+SetBattleField.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/~iaskai1/svn/!svn/ver/9/BattleShips/src/battleships/SetBattleField.java
+END
+Player.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/~iaskai1/svn/!svn/ver/10/BattleShips/src/battleships/Player.java
+END
+ShipsGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/~iaskai1/svn/!svn/ver/9/BattleShips/src/battleships/ShipsGenerator.java
+END
+Client.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/~iaskai1/svn/!svn/ver/9/BattleShips/src/battleships/Client.java
+END

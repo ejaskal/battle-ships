@@ -1,0 +1,75 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package battleships;
+
+import java.io.*;
+import java.net.*;
+
+/**
+ *Implement network interface for server
+ *
+ * @author Евгений
+ */
+public class Server {
+
+    ServerSocket srvSock;
+    Socket connection;
+    BufferedReader br;
+    PrintWriter pw;
+
+    Server (){
+        createSocket();
+    }
+
+    private void createSocket() {
+         try {
+             srvSock = new ServerSocket(5555);
+             connection = srvSock.accept();
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+     private void recieveCoordinates () throws IOException{
+        br = new BufferedReader (new InputStreamReader (connection.getInputStream()));
+        char[] stringArray = br.readLine().toCharArray();
+        String s1 = "";
+        String s2 = "";
+        char c;
+        int i = 0;
+        for (int index = 0; index < stringArray.length; index++) {
+            if (stringArray[index] == ';') {
+                System.out.println("Catch the ';'");
+                i = 2;
+            }else {
+                if (i==0){
+                   c = stringArray[index];
+                   s1+= Character.toString(c);
+                   System.out.println("S1 = "+s1);
+                }else {
+                   c = stringArray[index];
+                   s2+= Character.toString(c);
+                   System.out.println("S2 = "+s2);
+                }
+            }
+        }
+        int x = Integer.parseInt(s1);
+        int y = Integer.parseInt(s2);
+    }
+
+    private void sendCoordinate(int x, int y) throws IOException{
+        pw = new PrintWriter (connection.getOutputStream(),true);
+        String s = ""+x+";"+y;
+        System.out.println("coordinates"+s);
+        pw.println(s);
+    }
+
+
+
+
+}

@@ -1,0 +1,379 @@
+package battleships;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+import javax.swing.border.Border;
+
+/**
+ * Class creates main window and provide functionality to other GUI component.
+ * It incldes MainMenuBar, ToolBar and two JPanels for placing game fields (class
+ * SetBattleField, FireBattleField).
+ *
+ * 
+ */
+public class GUI{
+
+    /**
+     * Introduction of variables and components used in Class GUI
+     *
+     */    
+
+    private JPanel pnl_1 = new JPanel();
+    private JPanel pnl_2 = new JPanel();
+    private JMenuBar menuBar = new JMenuBar();
+    static JFrame jfrm = new JFrame (" Battleship ");
+    private JPanel panel = new JPanel();
+    private boolean netGame;
+    static JButton startGame = new JButton ("Start game");
+    static JButton playAgain = new JButton ("Play again");
+    Player human;
+    Player vP;
+
+    Border brd = BorderFactory.createLineBorder(Color.BLACK);
+
+    JButton playPC = new JButton ("Play with PC");
+    JButton playNet = new JButton ("Connect");
+
+    GridBagLayout gbl = new GridBagLayout();
+    GridBagConstraints gbc =  new GridBagConstraints();
+
+
+    SetBattleField sbf = new SetBattleField();
+    FireBattleField fbf = new FireBattleField();
+    VirtualPlayer virtualPlayer;
+    Connect cnt;
+
+    
+
+    GUI() {
+        addGUIComponents();
+    }
+
+
+    /**
+     * Method for adding components to the main Window
+     */
+
+    private void addGUIComponents() {
+       jfrm.setSize(850,550);
+       jfrm.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+
+       playPC.setToolTipText("To play with PC press this button");
+       playNet.setToolTipText("Play by network");
+
+
+        menuBar.add(playPC);
+        menuBar.add(playNet);
+
+        panel.setLayout(gbl);
+
+        pnl_1 = new JPanel();
+
+        pnl_1.setBorder(brd);
+        buildConstraints(gbc,0,1,1,1,5,5,GridBagConstraints.BOTH,GridBagConstraints.CENTER);
+        gbl.setConstraints(pnl_1, gbc);
+        panel.add(pnl_1);
+
+
+        pnl_2.setBorder(brd);
+        buildConstraints(gbc,1,1,1,1,5,5,GridBagConstraints.BOTH,GridBagConstraints.CENTER);
+        gbl.setConstraints(pnl_2, gbc);
+        panel.add(pnl_2);
+
+
+        addPlayPCListener();
+        addPlayNetListener();
+
+
+        jfrm.setJMenuBar(menuBar);
+        jfrm.add(panel);
+        jfrm.setVisible(true);
+    }
+
+
+
+    /**
+     * Method adding "Play with PC" button ActionListener
+     */
+    private void addPlayPCListener() {
+        playPC.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                netGame = false;
+
+
+                JToolBar toolBar = buildToolBar();
+                buildConstraints(gbc,0,0,4,1,0,0,GridBagConstraints.HORIZONTAL,GridBagConstraints.NORTH);
+                gbl.setConstraints(toolBar, gbc);
+                panel.add(toolBar);
+                
+
+                pnl_1.setLayout(new BorderLayout());
+                pnl_1.add(sbf.createField());//method in BattleField class, that creates field of Buttons and virtual field.
+
+                pnl_2.setLayout(new BorderLayout());
+                pnl_2.add(fbf.createField());
+
+                playNet.setEnabled(false);
+                playPC.setEnabled(false);
+
+                virtualPlayer = new VirtualPlayer(sbf);
+
+                fbf.block();
+
+                panel.updateUI();                
+            }
+        });
+    }
+
+    /**
+     * Method adding "Play net game" button ActionListener
+     */
+    private void addPlayNetListener() {
+        playNet.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                netGame = true;
+                cnt = new Connect();
+
+                JToolBar toolBar = buildToolBar();
+                buildConstraints(gbc,0,0,4,1,0,0,GridBagConstraints.HORIZONTAL,GridBagConstraints.NORTH);
+                gbl.setConstraints(toolBar, gbc);
+                panel.add(toolBar);
+
+                pnl_1.setLayout(new BorderLayout());
+                pnl_1.add(sbf.createField());
+
+                pnl_2.setLayout(new BorderLayout());
+                pnl_2.add(fbf.createField());
+
+
+                playNet.setEnabled(false);
+                playPC.setEnabled(false);
+
+                fbf.block();
+                
+                panel.updateUI();               
+
+            }
+        });
+    }
+
+
+    /**
+     * Method used for creating toolBar panel and locating elements on it. Include: 
+     * - Generete button for automatic generetion of ships position on the setField
+     * - reset button for cleaning field and set the ships again
+     * - Start button for begining the game.
+     *
+     * @return JToolBar
+     */
+
+    private JToolBar buildToolBar(){
+        final JToolBar toolBar = new  JToolBar("Ahoj");
+        toolBar.setFloatable(false);        
+        
+        
+        final JButton generateShip = new JButton ("Set Ships Randomly");
+        generateShip.setEnabled(true);
+
+        final JButton manShipSet = new JButton ("Set Ships Manually");
+        manShipSet.setEnabled(true);
+        
+        startGame.setEnabled(false);
+
+
+        toolBar.add(generateShip);
+        toolBar.addSeparator();
+
+        toolBar.add(manShipSet);
+        toolBar.addSeparator();
+
+        
+        toolBar.addSeparator();
+        toolBar.addSeparator();
+       
+        toolBar.addSeparator();
+        toolBar.addSeparator();
+                
+        toolBar.add(startGame);
+       
+        playAgain.setEnabled(false);
+        menuBar.add(playAgain);
+
+        final JButton reset = new JButton ("Reset Field");
+        reset.setEnabled(false);
+        menuBar.add(reset);
+
+        generateShip.setToolTipText("Click on this button if you want automatikly ship generation ");
+        manShipSet.setToolTipText("Click on this button if you want set ship manually ");
+        reset.setToolTipText("Press if you want to reset ships");
+
+        playAgain.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("New game ");
+                sbf.resetField();
+                fbf.resetField();
+                pnl_1.removeAll();
+                pnl_2.removeAll();
+                menuBar.remove(playAgain);
+                menuBar.remove(reset);
+                sbf.cleanLocatedShipBackground();
+                virtualPlayer.resetField();
+                virtualPlayer.resetFireField();
+
+                playNet.setEnabled(true);
+                playPC.setEnabled(true);
+                playAgain.setEnabled(false);
+
+                sbf.unblock();
+                fbf.unblock();
+                jfrm.repaint();
+
+            }
+        });
+
+        reset.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {                
+                sbf.setDecks(0);
+                sbf.cleanLocatedShipBackground();
+                sbf.resetField();
+                sbf.unblock();
+
+
+                generateShip.setEnabled(true);
+                manShipSet.setEnabled(true);
+                startGame.setEnabled(false);
+                reset.setEnabled(false);
+                jfrm.repaint();
+                
+            }
+        });
+
+        startGame.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {               
+                manShipSet.setEnabled(false);
+                generateShip.setEnabled(false);
+                startGame.setEnabled(false);
+                reset.setEnabled(false);
+                toolBar.setVisible(false);                
+                sbf.block();
+                fbf.block();
+                //String s = "Chose coordinate on the right side and press button to fire the opponent ships";
+                //showDialog(s);
+                jfrm.repaint();
+
+               
+                if (netGame == true) {
+                    System.out.println("Playing with HUMAN");
+                    if (cnt.server==true){
+                        Server host =  new Server (sbf,fbf);
+                    }else {
+                        String ipAdress = cnt.jtxtf.getText();
+                        Player player_1 = new Player (sbf,fbf, ipAdress);
+                    }
+                    Player player_1 = new Player (sbf, fbf);
+                    Player player_2 = new Player ();
+                    //cnt.setNetConnection(player_1, player_2);
+
+                } else {
+                    System.out.println("Playing with PC");                    
+                    Player virtual = new Player(virtualPlayer);
+                    Player human = new Player (sbf, fbf);
+                    Manager mgr = new Manager(human, virtual, false);
+
+                    Thread thread = new Thread(mgr);
+                    thread.start();                    
+
+                    try {                        
+                        Thread.sleep(500);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Interrup exception in GUI");
+                    }                    
+                }             
+            }
+        });
+
+        generateShip.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                manShipSet.setEnabled(false);
+                generateShip.setEnabled(false);
+                startGame.setEnabled(true);
+                ShipsGenerator sg = new ShipsGenerator(SetBattleField.setField);                
+                sbf.setLocatedShipBackground();          
+                reset.setEnabled(true);                
+                sbf.block();
+                jfrm.repaint();                
+            }
+        });
+
+        manShipSet.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {                
+                String s = "Set ships on the left side, and use Tab to rotate the ship";
+                showDialog(s);
+                generateShip.setEnabled(false);
+                reset.setEnabled(true);
+                sbf.setDecks(4);
+
+                startGame.setEnabled(false);
+                manShipSet.setEnabled(false);                
+            }
+        });
+
+        return toolBar;
+    }
+
+
+
+    /**
+     * Helper metod for building GridBagLayout
+     *
+     * @param gbc - the instance of GridBagConstraints;
+     * @param x - horizontal cell position of element;
+     * @param y - vertical cell position of element;
+     * @param w - the number of vertical cells wich takes element (width);
+     * @param h - the number of horisontal cells wich takes element (height);
+     * @param wx - additional parameter for free space;
+     * @param wy - additional parameter for free space;
+     * @param fill - constatnt for filling (HORISONTAL, VERTICAL, BOTH...);
+     * @param anchor - constatnt for placing (NORTH, SOUTH, EAST, WEST...);
+     *
+     */
+
+    static void buildConstraints(GridBagConstraints gbc, int x, int y, int w, int h, int wx, int wy, int fill, int anchor) {
+
+        gbc.gridx = x; // start cell in a row
+        gbc.gridy = y; // start cell in a column
+        gbc.gridwidth = w; // how many column does the control occupy in the row
+        gbc.gridheight = h; // how many column does the control occupy in the column
+        gbc.weightx = wx; // relative horizontal size
+        gbc.weighty = wy; // relative vertical size
+        gbc.fill = fill; // the way how the control fills cells
+        gbc.anchor = anchor; // alignment
+
+    }
+
+
+    /**
+     * Show Option Dialog window to inform user about what he have to do.
+     * @param s - String (information massige)
+     */
+    private void showDialog(String s) {
+        JOptionPane jop = new JOptionPane();
+        jop.showMessageDialog(jfrm, s);
+        jop.setValue(true);
+        jfrm.repaint();
+    }
+    
+    
+
+}
